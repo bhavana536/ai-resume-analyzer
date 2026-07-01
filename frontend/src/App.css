@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f1117;
+  margin: 0;
+}
+
+.App {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #e2e4e9;
+}
+
+h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+p {
+  color: #9094a6;
+  margin-bottom: 30px;
+}
+
+.upload-section, .job-section, .result {
+  background: #1a1d29;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #2a2e3f;
+  margin-bottom: 20px;
+}
+
+.job-section {
+  text-align: left;
+}
+
+.job-section label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #c5c8d4;
+}
+
+.job-section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #2a2e3f;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  background-color: #0f1117;
+  color: #e2e4e9;
+  resize: vertical;
+}
+
+input[type="file"] {
+  padding: 8px;
+  color: #e2e4e9;
+}
+
+button {
+  padding: 14px 32px;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #5a4bd1;
+}
+
+button:disabled {
+  background-color: #3a3d4d;
+  cursor: not-allowed;
+}
+
+.score-circle-container {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-label {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #c5c8d4;
+}
+
+.result {
+  text-align: left;
+}
+
+.result h2 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.result pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.7;
+  color: #c5c8d4;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: #2a2e3f;
+  color: #e2e4e9;
+  border: 2px dashed #6c5ce7;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.custom-file-upload:hover {
+  background-color: #353a4f;
+  border-color: #8c7ae6;
+}
+
+.job-section textarea,
+.job-section label {
+  display: block;
+}
+
+.result-card {
+  background: #1a1d29;
+  padding: 20px 25px;
+  border-radius: 12px;
+  border: 1px solid #2a2e3f;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.result-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.result-card ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+  color: #c5c8d4;
+}
+
+.result-card li {
+  margin-bottom: 8px;
+}
+
+.badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  padding: 6px 14px;
+  border: 1.5px solid;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.03);
+}

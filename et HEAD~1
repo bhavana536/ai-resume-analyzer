@@ -1,0 +1,29 @@
+[33mcommit cabcf28ca63c0af826f75277c4d4be2599f01082[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: P JAYABHAVANA <jayabhavanap63@gmail.com>
+Date:   Wed Jul 1 14:06:03 2026 +0530
+
+    Initial commit - AI Resume Analyzer
+
+ backend/.env                    |     1 [32m+[m
+ backend/Procfile                |     1 [32m+[m
+ backend/app.py                  |   111 [32m+[m
+ backend/requirements.txt        |    43 [32m+[m
+ frontend/.gitignore             |    23 [32m+[m
+ frontend/README.md              |    70 [32m+[m
+ frontend/package-lock.json      | 17419 [32m++++++++++++++++++++++++++++++++++++++[m
+ frontend/package.json           |    39 [32m+[m
+ frontend/public/favicon.ico     |   Bin [31m0[m -> [32m3870[m bytes
+ frontend/public/index.html      |    43 [32m+[m
+ frontend/public/logo192.png     |   Bin [31m0[m -> [32m5347[m bytes
+ frontend/public/logo512.png     |   Bin [31m0[m -> [32m9664[m bytes
+ frontend/public/manifest.json   |    25 [32m+[m
+ frontend/public/robots.txt      |     3 [32m+[m
+ frontend/src/App.css            |   178 [32m+[m
+ frontend/src/App.js             |   164 [32m+[m
+ frontend/src/App.test.js        |     8 [32m+[m
+ frontend/src/index.css          |    13 [32m+[m
+ frontend/src/index.js           |    17 [32m+[m
+ frontend/src/logo.svg           |     1 [32m+[m
+ frontend/src/reportWebVitals.js |    13 [32m+[m
+ frontend/src/setupTests.js      |     5 [32m+[m
+ 22 files changed, 18177 insertions(+)
