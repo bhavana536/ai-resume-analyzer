@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__) 
-CORS(app, origins=["https://ai-resume-analyzer-swart.vercel.app", "http://localhost:3000"])
+CORS(app, origins=["https://ai-resume-analyzer-nine-swart.vercel.app", "http://localhost:3000"])
 
 genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
