@@ -20,92 +20,78 @@ def home():
 
 @app.route('/analyze', methods=['POST'])
 def analyze_resume():
-    if 'resume' not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
-    
-    file = request.files['resume']
-    job_description = request.form.get('job_description', '')
-    
-    # Read PDF
-    pdf_reader = PyPDF2.PdfReader(io.BytesIO(file.read()))
-    text = ""
-    for page in pdf_reader.pages:
-        text += page.extract_text()
-    
-    # Build prompt based on whether job description was provided
-    if job_description.strip():
-        prompt = f"""
-        You are an expert HR recruiter and ATS (Applicant Tracking System) specialist.
-        Compare this resume against the given job description.
+    try:
+        if 'resume' not in request.files:
+            return jsonify({"error": "No file uploaded"}), 400
+        
+        file = request.files['resume']
+        job_description = request.form.get('job_description', '')
+        
+        # Read PDF
+        pdf_reader = PyPDF2.PdfReader(io.BytesIO(file.read()))
+        text = ""
+        for page in pdf_reader.pages:
+            text += page.extract_text()
+        
+        # Build prompt
+        if job_description.strip():
+            prompt = f"""
+            You are an expert HR recruiter and ATS specialist.
+            Compare this resume against the given job description.
 
-        SCORING RUBRIC (Total: 100 points):
-        - Keyword Match (40 points): How many important job description keywords appear in resume
-        - Experience Relevance (30 points): How well experience aligns with job requirements
-        - Skills Match (20 points): Technical/soft skills overlap
-        - Formatting & ATS-Friendliness (10 points): Clean structure, readable
+            SCORING RUBRIC (Total: 100 points):
+            - Keyword Match (40 points)
+            - Experience Relevance (30 points)
+            - Skills Match (20 points)
+            - Formatting & ATS-Friendliness (10 points)
 
-        JOB DESCRIPTION:
-        {job_description}
+            JOB DESCRIPTION:
+            {job_description}
 
-        RESUME:
-        {text}
+            RESUME:
+            {text}
 
-        Reply in this EXACT format:
-        SCORE: (number)
-        MATCH_PERCENTAGE: (number)
-        MATCHING_KEYWORDS:
-        - keyword 1
-        - keyword 2
-        - keyword 3
-        MISSING_KEYWORDS:
-        - keyword 1
-        - keyword 2
-        - keyword 3
-        STRENGTHS:
-        - point 1
-        - point 2
-        - point 3
-        IMPROVEMENTS:
-        - point 1
-        - point 2
-        - point 3
-        """
-    else:
-        prompt = f"""
-        You are an expert HR recruiter and resume reviewer. Analyze this resume using the EXACT scoring rubric below.
+            Reply in this EXACT format:
+            SCORE: (number)
+            MATCH_PERCENTAGE: (number)
+            MATCHING_KEYWORDS:
+            - keyword 1
+            MISSING_KEYWORDS:
+            - keyword 1
+            STRENGTHS:
+            - point 1
+            IMPROVEMENTS:
+            - point 1
+            """
+        else:
+            prompt = f"""
+            You are an expert HR recruiter. Analyze this resume.
 
-        SCORING RUBRIC (Total: 100 points):
-        - Contact Information (5 points): Has email, phone, LinkedIn
-        - Professional Summary/Objective (10 points): Clear and relevant
-        - Work Experience (30 points): Quantified achievements, action verbs, relevant roles
-        - Skills Section (15 points): Relevant technical and soft skills listed
-        - Education (10 points): Degree, institution, relevant coursework
-        - Projects (15 points): Relevant projects with technologies used
-        - Formatting & ATS-Friendliness (15 points): Clean structure, no graphics issues, readable
+            SCORING RUBRIC (Total: 100 points):
+            - Contact Information (5 points)
+            - Professional Summary (10 points)
+            - Work Experience (30 points)
+            - Skills Section (15 points)
+            - Education (10 points)
+            - Projects (15 points)
+            - Formatting (15 points)
 
-        Resume:
-        {text}
+            Resume:
+            {text}
 
-        Reply in this EXACT format:
-        SCORE: (number)
-        STRENGTHS:
-        - point 1
-        - point 2
-        - point 3
-        IMPROVEMENTS:
-        - point 1
-        - point 2
-        - point 3
-        MISSING:
-        - point 1
-        """
-    
-    response = model.generate_content(prompt)
-    
-    return jsonify({
-        "analysis": response.text,
-        "resume_text": text
-    })
+            Reply in this EXACT format:
+            SCORE: (number)
+            STRENGTHS:
+            - point 1
+            """
+        response = model.generate_content(prompt)
+        
+        return jsonify({
+            "analysis": response.text,
+            "resume_text": text
+        })
 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500        
 if __name__ == '__main__':
     app.run(debug=True)
