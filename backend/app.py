@@ -1,6 +1,6 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS 
-import google.generativeai as genai 
+from google import genai 
 import PyPDF2
 import io 
 import os
@@ -11,9 +11,7 @@ load_dotenv()
 app = Flask(__name__) 
 CORS(app, origins=["https://ai-resume-analyzer-nine-swart.vercel.app", "http://localhost:3000"])
 
-genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
-
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 @app.route('/')
 def home():
     return jsonify({"message":"AI Resume Analyzer Backend is running!"})
@@ -84,7 +82,10 @@ def analyze_resume():
             STRENGTHS:
             - point 1
             """
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-3.5-flash",
+            contents=prompt
+        )
         
         return jsonify({
             "analysis": response.text,
