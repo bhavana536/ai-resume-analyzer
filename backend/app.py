@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app, origins=["https://ai-resume-analyzer-nine-swart.vercel.app", "http://localhost:3000"])
 
 genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
 @app.route('/')
 def home():
