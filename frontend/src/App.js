@@ -61,8 +61,12 @@ function App() {
         body: formData
       });
       const data = await response.json();
-      setScore(extractScore(data.analysis));
-      setSections(parseAnalysis(data.analysis));
+      if (data.error) {
+        setSections({ ERROR: [data.error] });
+      } else {
+        setScore(extractScore(data.analysis));
+        setSections(parseAnalysis(data.analysis));
+      }
     } catch (error) {
       setSections({ ERROR: ["Something went wrong: " + error.message] });
     }
