@@ -13,12 +13,14 @@ function App() {
   };
 
   const extractScore = (text) => {
+    if (!text) return null;
     const match = text.match(/SCORE:\s*(\d+)/);
     return match ? parseInt(match[1]) : null;
   };
 
-  // Parses Gemini's raw text into clean sections
   const parseAnalysis = (text) => {
+    if (!text) return { ERROR: ["No analysis received from server"] };
+    
     const sectionNames = ['MATCHING_KEYWORDS', 'MISSING_KEYWORDS', 'STRENGTHS', 'IMPROVEMENTS', 'MISSING'];
     const result = {};
 
@@ -60,7 +62,9 @@ function App() {
         method: 'POST',
         body: formData
       });
+      
       const data = await response.json();
+      
       if (data.error) {
         setSections({ ERROR: [data.error] });
       } else {
@@ -86,6 +90,7 @@ function App() {
     STRENGTHS: { title: '💪 Strengths', type: 'list', color: '#2ecc71' },
     IMPROVEMENTS: { title: '🔧 Areas to Improve', type: 'list', color: '#f39c12' },
     MISSING: { title: '📋 Missing Sections', type: 'list', color: '#e74c3c' },
+    ERROR: { title: '❌ Error', type: 'list', color: '#e74c3c' },
   };
 
   return (
